@@ -169,6 +169,20 @@ Build blink.cmp manually (see above). For markdown-preview:
 cd ~/.local/share/nvim/plugged/markdown-preview.nvim/app && npx --yes yarn install
 ```
 
+### Telescope previewer crashes on nvim-treesitter v2
+Telescope's previewer (`0.1.8` tag and the `0.1.x` maintenance branch) calls
+`require('nvim-treesitter.parsers').ft_to_lang` — a v1-only API. nvim-treesitter
+v2 removed it, so opening any preview (e.g. `:Telescope find_files`) crashes:
+```
+attempt to call field 'ft_to_lang' (a nil value)
+```
+The fix lives only on telescope's `master` branch — it has been refactored to
+use the new treesitter API and was never backported to `0.1.x`. Track master:
+```vim
+Plug 'nvim-telescope/telescope.nvim', { 'branch': 'master' }
+```
+After editing, run `:PlugUpdate telescope.nvim` and restart.
+
 ### vim-plug `do` value parsing pitfalls
 vim-plug's parser is fussy about complex `do` values. Symptoms: `E115: Missing quote`,
 `E116: Invalid arguments for function plug#`. The whole `Plug` line errors out, the

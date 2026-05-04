@@ -55,7 +55,7 @@ Plug 'saghen/blink.cmp', { 'do': function('BuildBlinkCmp') }
 Plug 'seblyng/roslyn.nvim'
 
 " Fuzzy finder
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'nvim-telescope/telescope.nvim', { 'branch': 'master' }
 Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 
 " File tree  (replaces NERDTree)
