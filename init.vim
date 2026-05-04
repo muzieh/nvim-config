@@ -43,7 +43,13 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 
 " Completion  (requires: brew install rust)
-Plug 'saghen/blink.cmp', { 'do': 'cargo build --release' }
+" blink.cmp v2 requires sibling plugin blink.lib AND a lua build hook —
+" the legacy 'cargo build --release' string emits a startup warning.
+function! BuildBlinkCmp(info)
+  lua require('blink.cmp').build():wait(60000)
+endfunction
+Plug 'saghen/blink.lib'
+Plug 'saghen/blink.cmp', { 'do': function('BuildBlinkCmp') }
 
 " C# LSP
 Plug 'seblyng/roslyn.nvim'
